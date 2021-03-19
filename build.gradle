@@ -1,0 +1,110 @@
+buildscript {
+    
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        google()
+    }
+    dependencies {
+        classpath 'org.wisepersist:gwt-gradle-plugin:1.0.13'
+        classpath 'org.gretty:gretty:3.0.2'
+        classpath 'com.android.tools.build:gradle:4.0.2'
+
+        classpath "com.badlogicgames.gdx:gdx-tools:1.9.14"
+
+    }
+}
+
+allprojects {
+    apply plugin: "eclipse"
+
+    version = '1.0'
+    ext {
+        appName = "GdxWebSockets"
+        gdxVersion = '1.9.14'
+        roboVMVersion = '2.3.12'
+        box2DLightsVersion = '1.5'
+        ashleyVersion = '1.7.3'
+        aiVersion = '1.8.2'
+        gdxControllersVersion = '2.1.0'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+}
+
+project(":desktop") {
+    apply plugin: "java-library"
+
+
+    dependencies {
+        implementation project(":core")
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        
+    }
+}
+
+project(":android") {
+    apply plugin: "com.android.application"
+
+    configurations { natives }
+
+    dependencies {
+        implementation project(":core")
+        api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+        
+    }
+}
+
+project(":html") {
+    apply plugin: "java-library"
+    apply plugin: "gwt"
+    apply plugin: "war"
+    apply plugin: "org.gretty"
+
+
+    dependencies {
+        implementation project(":core")
+        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+        api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+        
+    }
+}
+
+project(":core") {
+    apply plugin: "java-library"
+
+
+    dependencies {
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        
+    }
+}
+
+project.ext.texturePacker = [ "android/assets/", "android/assets/", "miatles" ]
+
+// Import the texture packer
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+
+// Add a new task that packs the textures for you
+task texturePacker {
+    if (project.ext.has('texturePacker')) {
+        logger.info "Calling TexturePacker: "+texturePacker
+        TexturePacker.process(texturePacker[0], texturePacker[1], texturePacker[2])
+    }
+}
