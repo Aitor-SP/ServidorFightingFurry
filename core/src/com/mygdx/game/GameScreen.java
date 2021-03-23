@@ -2,11 +2,15 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.mygdx.game.gameplay.GameMaster;
+import com.mygdx.game.gameplay.GameRenderer;
+import com.mygdx.game.gameplay.Juego;
+import com.mygdx.game.mywidgets.MyScreen;
 
-public class GameScreen extends BaseScreen {
+public class GameScreen extends MyScreen {
 
-	GameMaster gameMaster;
+	static Cliente cliente;
+	public static GameRenderer gameRenderer;
+	static Juego juego;
 
 	public GameScreen(MyGdxGame game) {
 		super(game);
@@ -14,9 +18,16 @@ public class GameScreen extends BaseScreen {
 
 	@Override
 	public void show () {
+		cliente = new Cliente();
+		gameRenderer = new GameRenderer(stage);
+		juego = new Juego();
 
-		gameMaster = new GameMaster(stage);
-		gameMaster.start();
+		cliente.juego = juego;
+		juego.cliente = cliente;
+		juego.gameRenderer = gameRenderer;
+		gameRenderer.juego = juego;
+
+		cliente.connect();
 	}
 
 	@Override

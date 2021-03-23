@@ -6,112 +6,91 @@ filter: Nearest, Nearest
 repeat: none
 back
   rotate: false
-  xy: 2, 364
+  xy: 2, 341
   size: 960, 540
   orig: 960, 540
   offset: 0, 0
   index: -1
 badlogic
   rotate: false
-  xy: 2, 106
+  xy: 2, 83
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 button_quit_over
   rotate: false
-  xy: 28, 59
+  xy: 260, 296
   size: 23, 9
   orig: 23, 9
   offset: 0, 0
   index: -1
 button_quit_up
   rotate: false
-  xy: 106, 95
+  xy: 294, 330
   size: 23, 9
   orig: 23, 9
   offset: 0, 0
   index: -1
 button_start_over
   rotate: false
-  xy: 964, 827
+  xy: 2, 2
   size: 23, 9
   orig: 23, 9
   offset: 0, 0
   index: -1
 button_start_up
   rotate: false
-  xy: 990, 861
+  xy: 28, 36
   size: 23, 9
   orig: 23, 9
   offset: 0, 0
   index: -1
-cardA
+card_a
   rotate: false
-  xy: 998, 872
+  xy: 998, 849
   size: 24, 32
   orig: 24, 32
   offset: 0, 0
   index: -1
-cardB
+card_d
   rotate: false
-  xy: 2, 36
+  xy: 2, 13
   size: 24, 32
   orig: 24, 32
   offset: 0, 0
   index: -1
-cardC
+card_xa
   rotate: false
-  xy: 80, 72
+  xy: 80, 49
   size: 24, 32
   orig: 24, 32
   offset: 0, 0
   index: -1
-cardD
+card_xd
   rotate: false
-  xy: 964, 838
-  size: 24, 32
-  orig: 24, 32
-  offset: 0, 0
-  index: -1
-cardE
-  rotate: false
-  xy: 260, 296
-  size: 24, 32
-  orig: 24, 32
-  offset: 0, 0
-  index: -1
-cardF
-  rotate: false
-  xy: 294, 330
-  size: 24, 32
-  orig: 24, 32
-  offset: 0, 0
-  index: -1
-cardG
-  rotate: false
-  xy: 2, 2
+  xy: 964, 815
   size: 24, 32
   orig: 24, 32
   offset: 0, 0
   index: -1
 deck
   rotate: false
-  xy: 2, 70
+  xy: 2, 47
   size: 76, 34
   orig: 76, 34
   offset: 0, 0
   index: -1
 kid
   rotate: false
-  xy: 964, 872
+  xy: 964, 849
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 kid
   rotate: false
-  xy: 260, 330
+  xy: 260, 307
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

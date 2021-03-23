@@ -1,91 +1,51 @@
 package com.company.model;
 
-import com.google.gson.Gson;
-import jakarta.websocket.EndpointConfig;
-
-import java.awt.*;
-import java.util.List;
-
-
 public class Mensaje {
-    public enum Tipo {
-        ENTRAR_AL_JUEGO, SALIR_DEL_JUEGO, ESTOY_JUGANDO, POSICION
-    }
-
-    private static Gson gson = new Gson();
-
-    public String idDelQueEnvia;
-    public Color color;
-    public Tipo tipo;
-    public Jugador.Posicion posicion;
-    public List<Jugador.Disparo> disparos;
+    public String action;
+    public Mano mano;
+    public Carta carta;
+    public int[] vidas;
 
     public Mensaje(){}
 
-    public static Mensaje posicion(Jugador jugador){
-        Mensaje mensaje = new Mensaje();
-        mensaje.tipo = Tipo.POSICION;
-        mensaje.posicion = jugador.posicion;
-        mensaje.disparos = jugador.disparos;
-        return mensaje;
+    public Mensaje(String action) {
+        this.action = action;
     }
 
-    public static Mensaje entrarAlJuego(Jugador jugador){
-        Mensaje mensaje = new Mensaje();
-        mensaje.tipo = Tipo.ENTRAR_AL_JUEGO;
-        mensaje.color = jugador.color;
-        mensaje.posicion = jugador.posicion;
-        return mensaje;
+    public Mensaje(String action, Carta carta) {
+        this.action = action;
+        this.carta = carta;
     }
 
-    public static Mensaje estoyJugando(Jugador jugador){
-        Mensaje mensaje = new Mensaje();
-        mensaje.tipo = Tipo.ESTOY_JUGANDO;
-        mensaje.color = jugador.color;
-        mensaje.posicion = jugador.posicion;
-        mensaje.disparos = jugador.disparos;
-        return mensaje;
+    public Mensaje(String action, Mano mano) {
+        this.action = action;
+        this.mano = mano;
     }
 
-    public static Mensaje exitGame(){
-        Mensaje mensaje = new Mensaje();
-        mensaje.tipo = Tipo.SALIR_DEL_JUEGO;
-        return mensaje;
+    public Mensaje(String action, int[] vidas){
+        this.action = action;
+        this.vidas = vidas;
     }
 
-    public Mensaje setIdDelQueEnvia(String idDelQueEnvia){
-        this.idDelQueEnvia = idDelQueEnvia;
-        return this;
-    }
+    public static class Carta {
+        public String tipo;
+        public int valor;
 
-    public static class Encoder implements jakarta.websocket.Encoder.Text<Mensaje> {
-        @Override
-        public String encode(Mensaje mensaje) {
-            return gson.toJson(mensaje);
+        public Carta(){}
+
+        public Carta(String tipo, int valor) {
+            this.tipo = tipo;
+            this.valor = valor;
         }
-
-        @Override
-        public void init(EndpointConfig config) {}
-
-        @Override
-        public void destroy() {}
     }
 
-    public static class Decoder implements jakarta.websocket.Decoder.Text<Mensaje> {
-        @Override
-        public Mensaje decode(String s) {
-            return gson.fromJson(s, Mensaje.class);
+    public static class Mano {
+        public Carta[] cartaList;
+
+        public Mano(){}
+
+        public Mano(Carta[] cartaList) {
+            this.cartaList = cartaList;
         }
-
-        @Override
-        public boolean willDecode(String s) {
-            return (s != null);
-        }
-
-        @Override
-        public void init(EndpointConfig config) {}
-
-        @Override
-        public void destroy() {}
     }
 }

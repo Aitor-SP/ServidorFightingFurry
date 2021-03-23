@@ -1,18 +1,19 @@
-package com.mygdx.game;
+package com.mygdx.game.mywidgets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.MyGdxGame;
 
-public class BaseScreen implements Screen {
+public class MyScreen implements Screen {
     public final MyGdxGame game;
     public final Stage stage;
 
-    public BaseScreen(MyGdxGame game){
+    public MyScreen(MyGdxGame game){
         this.game = game;
         Gdx.input.setInputProcessor(stage = new Stage(game.viewport));
     }
-    public void setScreen(BaseScreen screen){
+    public void setScreen(MyScreen screen){
         Gdx.input.setInputProcessor(screen.stage);
         game.setScreen(screen);
     }

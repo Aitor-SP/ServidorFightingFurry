@@ -12,20 +12,20 @@ public class MyGdxGame extends Game {
 
 	public OrthographicCamera camera;
 	public Viewport viewport;
-	public int SCENE_WIDTH = 256;
-	public int SCENE_HEIGHT = 144;
+	public static float WIDTH = 128;
+	public static float HEIGHT = 72;
 
 	@Override
 	public void create () {
 		camera = new OrthographicCamera();
-		camera.position.set(SCENE_WIDTH/2, SCENE_HEIGHT/2, 0);
-		viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, camera);
+		camera.position.set(WIDTH /2, HEIGHT /2, 0);
+		viewport = new FitViewport(WIDTH, HEIGHT, camera);
 		viewport.apply();
 
 		assets = new Assets();
 		assets.load();
 
-		setScreen(new LoadScreen(this));
+		setScreen(new LoadScreen(MyGdxGame.this));
 	}
 
 	@Override

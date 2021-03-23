@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
 
-public class LoadScreen extends  BaseScreen{
+import com.mygdx.game.mywidgets.MyScreen;
+
+public class LoadScreen extends MyScreen {
 
     public LoadScreen(MyGdxGame game) {
         super(game);

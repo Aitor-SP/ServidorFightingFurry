@@ -1,8 +1,10 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.mygdx.game.mywidgets.MyImageButton;
+import com.mygdx.game.mywidgets.MyScreen;
 
-public class MenuScreen extends BaseScreen {
+public class MenuScreen extends MyScreen {
 
     public MenuScreen(MyGdxGame game) {
         super(game);

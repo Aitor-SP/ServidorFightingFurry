@@ -4,46 +4,56 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
+import com.company.model.Mensaje;
 import com.mygdx.game.Assets;
+import com.mygdx.game.GameScreen;
+import com.mygdx.game.MyGdxGame;
 
 public class Carta extends Actor {
-    enum Type {
-        A,B,C,D,E,F,G;
-    }
-
-    Type type;
-    Jugador jugador;
-    public int daño;
-
+    String type;
+    public int value;
 
     Animation<TextureRegion> animation;
-    float stateTime = 0;
+    float stateTime;
 
-
-    Carta(Type type) {
+    Carta(String type, int value) {
         this.type = type;
-    }
+        this.value = value;
 
-    void initRender(float x, float y, GameRenderer gameRenderer){
         setSize(24,32);
         setOrigin(Align.center);
-        setPosition(x, y);
+        setPosition(0, 0);
 
-        setState();
+        String animationName;
+        switch (type){
+            case "defensa": default: animationName = "card_d"; break;
+            case "xdefensa": animationName = "card_xd"; break;
+            case "ataque": animationName = "card_a"; break;
+            case "xataque": animationName = "card_xa"; break;
+        }
+
+        animation = Assets.getAnimation(animationName, 0.3f, Animation.PlayMode.LOOP);
 
         addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gameRenderer.jugar(Carta.this);
+                GameScreen.gameRenderer.touched(Carta.this);
                 return false;
             }
         });
+    }
+
+    static Carta fromMensaje(Mensaje.Carta carta){
+        return new Carta(carta.tipo, carta.valor);
+    }
+
+    Mensaje.Carta toMensaje(){
+        return new Mensaje.Carta(type ,value);
     }
 
     @Override
@@ -58,33 +68,37 @@ public class Carta extends Actor {
         batch.draw(animation.getKeyFrame(stateTime), getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }
 
-    public void repartir(int x, int y){
+    public void accionRepartir(float x, float y, float delay){
+        setPosition(MyGdxGame.WIDTH/2, MyGdxGame.HEIGHT);
         addAction(
             Actions.sequence(
+                Actions.delay(delay),
                 Actions.parallel(
-                        Actions.moveTo(x, y, 4, Interpolation.elasticOut)
+                    Actions.rotateBy(360*3, 0.9f, Interpolation.fastSlow),
+                    Actions.moveTo(x, y, 1, Interpolation.fastSlow)
                 )
             )
         );
     }
 
-    public static Carta getRandomCard(){
-        return new Carta(Type.values()[MathUtils.random(Type.values().length)]);
+    public void accionTirar(float x, float y) {
+        addAction(
+            Actions.sequence(
+                Actions.parallel(
+                    Actions.rotateBy(40, 0.4f, Interpolation.fastSlow),
+                    Actions.moveTo(x/2, y/2, 0.4f, Interpolation.fastSlow)
+                ),
+                Actions.parallel(
+                    Actions.rotateBy(-40, 0.3f, Interpolation.fastSlow),
+                    Actions.moveTo(x, y, 0.3f, Interpolation.fastSlow)
+                ),
+                Actions.fadeOut(0.7f)
+            )
+        );
     }
 
-    void setState(){
-        stateTime = 0;
-
-        String animationName;
-        switch (type){
-            case A: default: animationName = "cardA"; break;
-            case B: animationName = "cardB"; break;
-            case C: animationName = "cardC"; break;
-            case D: animationName = "cardD"; break;
-            case E: animationName = "cardE"; break;
-            case F: animationName = "cardF"; break;
-            case G: animationName = "cardG"; break;
-        }
-        animation = Assets.getAnimation(animationName, 0.3f, Animation.PlayMode.LOOP);
+    @Override
+    public String toString() {
+        return "Carta{ type=" + type + ", value=" + value + '}';
     }
 }
