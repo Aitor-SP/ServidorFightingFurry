@@ -6,8 +6,6 @@ import com.google.gson.Gson;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 
-import java.io.IOException;
-
 @ServerEndpoint(value = "/", encoders = ServidorEndpoint.MyEncoder.class, decoders = ServidorEndpoint.MyDecoder.class)
 public class ServidorEndpoint {
     static Gson gson = new Gson();
@@ -22,7 +20,7 @@ public class ServidorEndpoint {
     }
 
     @OnMessage
-    public void onMessage(Session cliente, Mensaje mensaje) throws IOException, EncodeException {
+    public void onMessage(Session cliente, Mensaje mensaje) {
         System.out.println("MENSAJE DE " + cliente.getId() + " => " + mensaje.action);
         juego.onMessage(cliente, mensaje);
     }

@@ -36,20 +36,16 @@ public class Partida {
     }
 
     public void hacerJugada(Session cliente, Carta carta) {
-        System.out.println("VALE");
         if(turno.session != cliente) return; // cheat
-        System.out.println("VALE2");
         if(!turno.mano.tieneCarta(carta)) return; // cheat
-        System.out.println("VALE3");
 
         if(carta.tipo.equals("ataque")) {
             turno.oponente.vida -= carta.valor*turno.xataque - turno.oponente.defensa*turno.xdefensa;
             turno.xataque = 1;
             turno.oponente.xdefensa = 1;
-            System.out.println("VENGA!!! " + turno.oponente.vida);
 
         } else if(carta.tipo.equals("defensa")){
-            turno.defensa = carta.valor;
+            turno.defensa += carta.valor;
         } else if(carta.tipo.equals("xataque")){
             turno.xataque = carta.valor;
         } else if(carta.tipo.equals("xdefensa")){

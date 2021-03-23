@@ -9,8 +9,6 @@ public class Juego {
     public Cliente cliente;
     public GameRenderer gameRenderer;
 
-
-
     public void onOpen() {
         gameRenderer.mostrarMensaje("CONECTADO");
         cliente.send(new Mensaje("READY"));

@@ -12,9 +12,7 @@ public class Juego {
     Map<String, Partida> partidaMap = new HashMap<>();
     Partida partida = new Partida();
 
-    public void onOpen(Session cliente) {
-
-    }
+    public void onOpen(Session cliente) {}
 
     public void onMessage(Session cliente, Mensaje mensaje) {
         if(mensaje.action.equals("READY")){
@@ -38,13 +36,7 @@ public class Juego {
         }
     }
 
-    public void onClose(Session cliente) {
+    public void onClose(Session cliente) {}
 
-    }
-
-    public void onError(Session session) {
-
-    }
-
-
+    public void onError(Session session) {}
 }

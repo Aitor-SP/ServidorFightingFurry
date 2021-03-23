@@ -14,11 +14,10 @@ public class Mano {
     }
 
     public boolean tieneCarta(Carta estaCarta) {
-        for(Carta carta:cartaList){
-            if(carta.tipo.equals(estaCarta.tipo) && carta.valor == estaCarta.valor){
+        for(Carta carta:cartaList)
+            if(carta.tipo.equals(estaCarta.tipo) && carta.valor == estaCarta.valor)
                 return true;
-            }
-        }
+
         return false;
     }
 }

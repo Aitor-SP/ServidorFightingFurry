@@ -7,14 +7,13 @@ import com.company.model.Mensaje;
 import com.mygdx.game.Assets;
 import com.mygdx.game.MyGdxGame;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Mano extends Actor {
 
-    List<Carta> cartaList = new ArrayList<>();
+    List<Carta> cartaList;
     TextureRegion texture = Assets.getTexture("deck");
 
     Mano(List<Carta> cartaList) {
