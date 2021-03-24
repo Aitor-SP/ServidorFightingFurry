@@ -11,8 +11,11 @@ public class LoadScreen extends MyScreen {
 
     @Override
     public void render(float delta) {
+        super.render(delta);
+
         if(!game.assets.update()) return;
 
-        setScreen(new GameScreen(game));
+        setScreen(new MenuScreen(game));
+//        setScreen(new GameScreen(game));
     }
 }

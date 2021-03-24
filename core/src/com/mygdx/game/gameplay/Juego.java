@@ -2,35 +2,39 @@ package com.mygdx.game.gameplay;
 
 import com.company.model.Mensaje;
 import com.github.czyzby.websocket.data.WebSocketCloseCode;
-import com.mygdx.game.Cliente;
+import com.mygdx.game.S;
 
 public class Juego {
 
-    public Cliente cliente;
-    public GameRenderer gameRenderer;
+    Mano mano;
 
-    public void onOpen() {
-        gameRenderer.mostrarMensaje("CONECTADO");
-        cliente.send(new Mensaje("READY"));
+    public void cuandoConecte() {
+        S.renderizador.mostrarMensaje("CONECTADO");
+        S.clienteWS.enviar(new Mensaje("READY"));
     }
 
-    public void onMessage(Mensaje mensaje) {
-        if(mensaje.action.equals("START")){
-            gameRenderer.mostrarMensaje("GAME START");
-        } else if(mensaje.action.equals("CARTAS")){
+    public void cuandoLlegueUnMensaje(Mensaje mensaje) {
+        switch (mensaje.action) {
+            case "START":
+                S.renderizador.mostrarMensaje("GAME START");
+                break;
+            case "CARTAS":
+                mano = Mano.fromMensaje(mensaje.mano);
 
-            gameRenderer.mostrarMensaje("");
-            gameRenderer.ponerMano(Mano.fromMensaje(mensaje.mano));
-            gameRenderer.repartirCartas();
-
-        } else if(mensaje.action.equals("VIDAS")){
-            gameRenderer.mostrarVidas(mensaje.vidas[0], mensaje.vidas[1]);
+                S.renderizador.mostrarMensaje("");
+                S.renderizador.ponerMano(mano);
+                S.renderizador.repartirCartas();
+                break;
+            case "VIDAS":
+                S.renderizador.mostrarVidas(mensaje.vidas[0], mensaje.vidas[1]);
+                break;
         }
     }
 
-    public void onClose(WebSocketCloseCode code, String reason) {}
+    public void cuandoDesconecte(WebSocketCloseCode code, String reason) {}
 
     public void jugar(Carta carta) {
-        cliente.send(new Mensaje("JUGADA", carta.toMensaje()));
+        S.clienteWS.enviar(new Mensaje("JUGADA", carta.toMensaje()));
+        mano.cartaList.remove(carta);
     }
 }

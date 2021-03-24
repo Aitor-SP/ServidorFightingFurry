@@ -5,16 +5,40 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class MyLabel extends Label {
-    static LabelStyle labelStyle = new LabelStyle();
+    static LabelStyle sLabelStyle = new LabelStyle();
     static {
+        sLabelStyle.font = new BitmapFont();
+    }
+
+    LabelStyle labelStyle;
+
+    public MyLabel(){
+        super("", sLabelStyle);
+
+        labelStyle = new LabelStyle();
         labelStyle.font = new BitmapFont();
+
+        setStyle(labelStyle);
+    }
+
+    public MyLabel(Color color){
+        this();
+        getStyle().fontColor = color;
+        getStyle().font.getData().setScale(0.5f);
+    }
+
+    public MyLabel(CharSequence charSequence, Color color){
+        this(color);
+        setText(charSequence);
     }
 
     public MyLabel(float x, float y, Color color){
-        super("", labelStyle);
-        getStyle().fontColor = color;
-        getStyle().font.getData().setScale(0.5f);
-
+        this(color);
         setPosition(x, y);
+    }
+
+    public MyLabel(CharSequence charSequence, float x, float y, Color color){
+        this(x, y, color);
+        setText(charSequence);
     }
 }

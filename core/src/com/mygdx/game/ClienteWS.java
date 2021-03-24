@@ -7,17 +7,12 @@ import com.github.czyzby.websocket.WebSocket;
 import com.github.czyzby.websocket.data.WebSocketCloseCode;
 import com.github.czyzby.websocket.data.WebSocketException;
 import com.github.czyzby.websocket.net.ExtendedNet;
-import com.mygdx.game.gameplay.Juego;
 
-public class Cliente {
+public class ClienteWS {
     private WebSocket socket;
     static Json json = new Json();
 
-    Juego juego;
-
-    public Cliente(){}
-
-    public void connect(){
+    public void conectar(){
 //        String host = "192.168.246.246";
 //        String host = "192.168.1.100";
         String host = "localhost";
@@ -26,23 +21,19 @@ public class Cliente {
         socket.addListener(new AbstractWebSocketListener() {
             @Override
             public boolean onOpen(final WebSocket webSocket) {
-                juego.onOpen();
+                S.juego.cuandoConecte();
                 return FULLY_HANDLED;
             }
 
             @Override
             public boolean onClose(final WebSocket webSocket, final WebSocketCloseCode code, final String reason) {
-                juego.onClose(code, reason);
+                S.juego.cuandoDesconecte(code, reason);
                 return FULLY_HANDLED;
             }
 
-
             @Override
             public boolean onMessage(final WebSocket webSocket, final String s) {
-                System.out.println("onMessage: " + s);
-                Mensaje mensaje = json.fromJson(Mensaje.class, s);
-                juego.onMessage(mensaje);
-
+                S.juego.cuandoLlegueUnMensaje(json.fromJson(Mensaje.class, s));
                 return FULLY_HANDLED;
             }
 
@@ -59,7 +50,7 @@ public class Cliente {
         }
     }
 
-    public void send(Mensaje mensaje){
+    public void enviar(Mensaje mensaje){
         socket.send(json.toJson(mensaje));
     }
 }

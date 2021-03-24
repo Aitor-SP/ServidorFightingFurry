@@ -1,26 +1,24 @@
 package com.mygdx.game.gameplay;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.company.model.Mensaje;
 import com.mygdx.game.Assets;
-import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.mywidgets.MyActor;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Mano extends Actor {
+public class Mano extends MyActor {
 
     List<Carta> cartaList;
-    TextureRegion texture = Assets.getTexture("deck");
 
     Mano(List<Carta> cartaList) {
         this.cartaList = cartaList;
 
         setSize(24*3+4, 34);
-        setPosition((MyGdxGame.WIDTH-texture.getRegionWidth())/2, 0);
+
+        animation = Assets.getAnimation("deck", 0.3f, Animation.PlayMode.LOOP);
     }
 
     Mensaje.Mano toMensaje(){
@@ -32,14 +30,16 @@ public class Mano extends Actor {
     }
 
     float[] getCardsPositions(){
-        return new float[]{getX()+1, getX()+25+1, getX()+25*2+1};
+
+        // TODO: obtener la posicion absoluta en pantalla (x y)
+//        float x = localToParentCoordinates(new Vector2(getParent().getX(), getParent().getY())).x;
+//        float x = getParent().getX();
+
+        float x = 26;
+
+        return new float[]{x+1, x+25+1, x+25*2+1};
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        batch.draw(texture, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
-        super.draw(batch, parentAlpha);
-    }
 
     @Override
     public String toString() {

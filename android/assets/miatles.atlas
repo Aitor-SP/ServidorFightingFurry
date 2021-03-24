@@ -4,94 +4,80 @@ size: 1024, 1024
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+ataque
+  rotate: false
+  xy: 964, 838
+  size: 24, 32
+  orig: 24, 32
+  offset: 0, 0
+  index: -1
 back
   rotate: false
-  xy: 2, 341
+  xy: 2, 330
   size: 960, 540
   orig: 960, 540
   offset: 0, 0
   index: -1
 badlogic
   rotate: false
-  xy: 2, 83
+  xy: 2, 72
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 button_quit_over
   rotate: false
-  xy: 260, 296
+  xy: 964, 827
   size: 23, 9
   orig: 23, 9
   offset: 0, 0
   index: -1
 button_quit_up
   rotate: false
-  xy: 294, 330
+  xy: 990, 861
   size: 23, 9
   orig: 23, 9
   offset: 0, 0
   index: -1
 button_start_over
   rotate: false
-  xy: 2, 2
+  xy: 260, 285
   size: 23, 9
   orig: 23, 9
   offset: 0, 0
   index: -1
 button_start_up
   rotate: false
-  xy: 28, 36
+  xy: 286, 319
   size: 23, 9
   orig: 23, 9
   offset: 0, 0
   index: -1
-card_a
-  rotate: false
-  xy: 998, 849
-  size: 24, 32
-  orig: 24, 32
-  offset: 0, 0
-  index: -1
-card_d
-  rotate: false
-  xy: 2, 13
-  size: 24, 32
-  orig: 24, 32
-  offset: 0, 0
-  index: -1
-card_xa
-  rotate: false
-  xy: 80, 49
-  size: 24, 32
-  orig: 24, 32
-  offset: 0, 0
-  index: -1
-card_xd
-  rotate: false
-  xy: 964, 815
-  size: 24, 32
-  orig: 24, 32
-  offset: 0, 0
-  index: -1
 deck
   rotate: false
-  xy: 2, 47
+  xy: 2, 36
   size: 76, 34
   orig: 76, 34
   offset: 0, 0
   index: -1
-kid
+defensa
   rotate: false
-  xy: 964, 849
-  size: 32, 32
-  orig: 32, 32
+  xy: 260, 296
+  size: 24, 32
+  orig: 24, 32
   offset: 0, 0
-  index: 1
-kid
+  index: -1
+xataque
   rotate: false
-  xy: 260, 307
-  size: 32, 32
-  orig: 32, 32
+  xy: 2, 2
+  size: 24, 32
+  orig: 24, 32
   offset: 0, 0
-  index: 2
+  index: -1
+xdefensa
+  rotate: false
+  xy: 80, 38
+  size: 24, 32
+  orig: 24, 32
+  offset: 0, 0
+  index: -1

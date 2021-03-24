@@ -12,18 +12,11 @@ public class MenuScreen extends MyScreen {
 
     @Override
     public void show() {
-        stage.addActor(new MyImageButton("button_start_up", "button_start_over", 100, 100, 60, 30, () -> {
+        stage.middleCenter.addActor(new MyImageButton("button_start_up", "button_start_over", 30, 10, () -> {
             setScreen(new GameScreen(game));
         }));
-
-        stage.addActor(new MyImageButton("button_quit_up", "button_quit_over", 100, 50, 60, 30, () -> {
+        stage.middleCenter.addActor(new MyImageButton("button_quit_up", "button_quit_over", 30, 10, () -> {
             Gdx.app.exit();
         }));
-    }
-
-    @Override
-    public void render (float delta){
-        stage.act();
-        stage.draw();
     }
 }

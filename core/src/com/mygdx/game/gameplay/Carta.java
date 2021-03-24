@@ -1,51 +1,30 @@
 package com.mygdx.game.gameplay;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
 import com.company.model.Mensaje;
 import com.mygdx.game.Assets;
-import com.mygdx.game.GameScreen;
-import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Config;
+import com.mygdx.game.S;
+import com.mygdx.game.mywidgets.MyActor;
 
-public class Carta extends Actor {
-    String type;
-    public int value;
+public class Carta extends MyActor {
+    String tipo;
+    public int valor;
 
-    Animation<TextureRegion> animation;
-    float stateTime;
-
-    Carta(String type, int value) {
-        this.type = type;
-        this.value = value;
+    Carta(String tipo, int valor) {
+        this.tipo = tipo;
+        this.valor = valor;
 
         setSize(24,32);
         setOrigin(Align.center);
         setPosition(0, 0);
 
-        String animationName;
-        switch (type){
-            case "defensa": default: animationName = "card_d"; break;
-            case "xdefensa": animationName = "card_xd"; break;
-            case "ataque": animationName = "card_a"; break;
-            case "xataque": animationName = "card_xa"; break;
-        }
+        animation = Assets.getAnimation(tipo, 0.3f, Animation.PlayMode.LOOP);
 
-        animation = Assets.getAnimation(animationName, 0.3f, Animation.PlayMode.LOOP);
-
-        addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                GameScreen.gameRenderer.touched(Carta.this);
-                return false;
-            }
-        });
+        addListener(() -> S.renderizador.touched(Carta.this));
     }
 
     static Carta fromMensaje(Mensaje.Carta carta){
@@ -53,23 +32,12 @@ public class Carta extends Actor {
     }
 
     Mensaje.Carta toMensaje(){
-        return new Mensaje.Carta(type ,value);
+        return new Mensaje.Carta(tipo, valor);
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        stateTime += delta;
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        batch.draw(animation.getKeyFrame(stateTime), getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
-    }
 
     public void accionRepartir(float x, float y, float delay){
-        setPosition(MyGdxGame.WIDTH/2, MyGdxGame.HEIGHT);
+        setPosition(Config.WIDTH/2, Config.HEIGHT);
         addAction(
             Actions.sequence(
                 Actions.delay(delay),
@@ -99,6 +67,6 @@ public class Carta extends Actor {
 
     @Override
     public String toString() {
-        return "Carta{ type=" + type + ", value=" + value + '}';
+        return "Carta{ type=" + tipo + ", value=" + valor + '}';
     }
 }

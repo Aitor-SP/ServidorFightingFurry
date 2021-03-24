@@ -12,11 +12,15 @@ public class MyImageButton extends ImageButton {
     }
 
     public MyImageButton(String image_up, String image_over, int x, int y, int w, int h, OnClickListener onClickListener) {
+        this(image_up, image_over, w, h, onClickListener);
+        setPosition(x, y);
+    }
+
+    public MyImageButton(String image_up, String image_over, int w, int h, OnClickListener onClickListener) {
         super(new ImageButtonStyle());
 
         getStyle().up = Assets.getDrawable(image_up);
         getStyle().over = Assets.getDrawable(image_over);
-        setPosition(x, y);
         setSize(w, h);
         addListener(new InputListener(){
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

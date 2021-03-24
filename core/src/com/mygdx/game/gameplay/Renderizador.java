@@ -1,35 +1,39 @@
 package com.mygdx.game.gameplay;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.S;
 import com.mygdx.game.mywidgets.MyLabel;
+import com.mygdx.game.mywidgets.MyStage;
 
 
-public class GameRenderer {
-    Stage stage;
-    public Juego juego;
+public class Renderizador {
+    MyStage stage;
+
     MyLabel label, vida1, vida2;
 
     Mano mano;
 
-    public GameRenderer(Stage stage){
+    public Renderizador(MyStage stage){
         this.stage = stage;
 
-        label = new MyLabel(10, 35, Color.RED);
-        vida1 = new MyLabel(10, 60, Color.YELLOW);
-        vida2 = new MyLabel(100, 60, Color.YELLOW);
+        label = new MyLabel(Color.RED);
+        vida1 = new MyLabel(Color.YELLOW);
+        vida2 = new MyLabel(Color.YELLOW);
 
-        stage.addActor(label);
-        stage.addActor(vida1);
-        stage.addActor(vida2);
+        stage.topLeft.addActor(vida1);
+        stage.topRight.addActor(vida2);
+        stage.middleCenter.addActor(label);
     }
 
     public void repartirCartas() {
-
         float delay = 0;
+
+        // TODO: obtener la posicion en la que debe ir cada carta para que coincida con el deck
+        float[] positions = mano.getCardsPositions();
+
         for(Carta carta: mano.cartaList){
-            float x = mano.getCardsPositions()[mano.cartaList.indexOf(carta)];
-            float y = mano.getY()+1;
+            float x = positions[mano.cartaList.indexOf(carta)];
+            float y = mano.getY()+3;
 
             carta.accionRepartir(x, y, delay);
 
@@ -40,13 +44,13 @@ public class GameRenderer {
     }
 
     public void touched(Carta carta){
-        juego.jugar(carta);
+        S.juego.jugar(carta);
         carta.accionTirar(64, 36);
     }
 
     public void ponerMano(Mano mano) {
         this.mano = mano;
-        stage.addActor(mano);
+        stage.bottomCenter.addActor(mano);
     }
 
     public void mostrarMensaje(String text){
