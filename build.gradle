@@ -21,7 +21,7 @@ allprojects {
     version = '1.0'
     ext {
         appName = "GdxWebSockets"
-        gdxVersion = '1.9.14'
+        gdxVersion = '1.10.0'
         roboVMVersion = '2.3.12'
         box2DLightsVersion = '1.5'
         ashleyVersion = '1.7.3'
@@ -48,7 +48,7 @@ project(":desktop") {
     dependencies {
         implementation project(":core")
         implementation "com.github.czyzby:gdx-websocket-common:$libVersion"
-        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
         implementation project(path: ':model')
@@ -107,7 +107,6 @@ project(":core") {
         implementation 'org.glassfish.tyrus:tyrus-container-grizzly-server:2.0.0'
 
         implementation "com.github.czyzby:gdx-websocket:$libVersion"
-        implementation "com.google.gwt:gwt-servlet:2.9.0"
         implementation project(path: ':model')
     }
 }

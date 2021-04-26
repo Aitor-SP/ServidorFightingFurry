@@ -22,7 +22,11 @@ public class Main extends JPanel {
         JFrame frame = new JFrame();
 
         frame.getContentPane().add(this, BorderLayout.CENTER);
-        frame.setSize(200, 80);
+        frame.setSize(550, 200);
+        JButton btnEncender = new JButton("Encender Servidor");
+        JButton btnApagar = new JButton("Apagar Servidor");
+        frame.getContentPane().add(btnEncender);
+        frame.getContentPane().add(btnApagar);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
